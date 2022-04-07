@@ -12,7 +12,7 @@ public class controladorClientes {
     
     private final String url = "jdbc:mysql://localhost:3306/gimnasio";
     private final String usuario = "root";
-    private final String password = "luis";
+    private final String password = "";
     
     Connection connection;
     Statement statement;
@@ -24,9 +24,10 @@ public class controladorClientes {
    
         try{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+       
             connection = DriverManager.getConnection(url, usuario, password);
             statement = connection.createStatement();
-        }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
+        }catch(Exception e){
             System.out.println("No se puede conectar");
         }
     }

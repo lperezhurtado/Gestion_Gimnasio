@@ -6,12 +6,14 @@ public class Gimnasio {
     public static void main(String[] args) {
         
         controladorClientes controlador = new controladorClientes();
-        //Cliente c = new Cliente("Josue","24514324d","61792834","2022-02-21",450);
+        Cliente c = new Cliente("Josue","24514324d","61792834","2022-02-21",450);
         //controlador.insertCliente(c);
-        //controlador.updateCliente(2, "Carlos", "1234", "9876", "1997-06-26", "500");
        
-        controlador.verDatosClientes();
+       // controlador.updateCliente(2, "Carlos", "1234", "9876", "1997-06-26", "500");
+       controlador.deleteCliente(2);
         //controlador.verDatosClientes();
+        controlador.verDatosClientes();
+        
         
       /* try{
            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
