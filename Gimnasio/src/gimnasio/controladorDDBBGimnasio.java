@@ -113,7 +113,8 @@ public class controladorDDBBGimnasio {
         try{
             conectar();
             rs = statement.executeQuery("SELECT * FROM clases");
-            
+            System.out.println(String.format("%-2s | %-10s | %-10s | %-10s | %-10s | %-5s |", "ID", "NOMBRE", "PROFESOR", "DIA", "HORA", "APUNTADOS"));
+            System.out.println("-------------------------------------------------------------------");                                                         
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
@@ -121,8 +122,8 @@ public class controladorDDBBGimnasio {
                 String dia = rs.getString("dia");
                 String hora = rs.getString("hora");
                 int apuntados = rs.getInt("apuntados");
-
-                System.out.println(String.format("%d, %s, %s, %s, %s, %d", id, nombre, profesor, dia, hora, apuntados));
+                
+                System.out.println(String.format("%-2d | %-10s | %-10s | %-10s | %-10s | %-5d", id, nombre, profesor, dia, hora, apuntados));
             }
             cerrar();
         }
@@ -137,6 +138,7 @@ public class controladorDDBBGimnasio {
             ejecucion = statement.execute("insert into clases (nombre,profesor,dia,hora) " +
             "values ('"+c.getNombre()+"','"+c.getProfesor()+"','"+c.getDia()+"','"+c.getHora()+"');");
             cerrar();
+            System.out.println("CLASE AÑADIDA CORRECTAMENTE \n");
         }
         catch(SQLException e){
             System.out.println(e);
@@ -148,8 +150,9 @@ public class controladorDDBBGimnasio {
         try{
             conectar();
             ejecucion = statement.execute("update clases set nombre='"+c.getNombre() +
-            "',profesor='"+c.getProfesor()+"',dia='"+c.getDia()+"',hora="+c.getHora()+" where id="+id);
+            "',profesor='"+c.getProfesor()+"',dia='"+c.getDia()+"',hora='"+c.getHora()+"' where id="+id);
             cerrar();
+            System.out.println("CLASE ACTUALIZADA \n");
         }
         catch(SQLException e){
             System.out.println(e+"\n");
@@ -161,6 +164,7 @@ public class controladorDDBBGimnasio {
             conectar();
             ejecucion = statement.execute("delete from clases where id="+id+";");
             cerrar();
+            System.out.println("CLASE ELIMINADA DEL REGISTRO \n");
         }
         catch(SQLException e){
             System.out.println(e);
@@ -175,8 +179,9 @@ public class controladorDDBBGimnasio {
                                           "SELECT "+idCliente+", clientes.nombre, "+idClase+", clases.nombre FROM clientes, clases\n " +
                                           "WHERE clientes.id="+idCliente+" AND clases.id="+idClase+";");
             
-            ejecucion = statement.execute("UPDATE clases SET apuntados=apuntados+1 WHERE id="+idClase);
+            ejecucion = statement.execute("UPDATE clases SET apuntados=apuntados+1 WHERE id="+idClase+";");
             cerrar();
+            System.out.println("SE HA ANOTADO CLIENTE CORRECTAMENTE \n");
         }
         catch(SQLException e){
             System.out.println("Cliente o clase no existente\n");
@@ -186,12 +191,13 @@ public class controladorDDBBGimnasio {
     public void desapuntarCliente(int idCliente, int idClase){
         try{
             conectar();
-            ejecucion = statement.execute("DELETE FROM clientes_clases WHERE idCliente="+idCliente+"AND idClase="+idClase);
-            ejecucion = statement.execute("UPDATE clases SET apuntados=apuntados-1 WHERE id="+idClase);
+            ejecucion = statement.execute("DELETE FROM clientes_clases WHERE idCliente="+idCliente+" AND idClase="+idClase+";");
+            ejecucion = statement.execute("UPDATE clases SET apuntados=apuntados-1 WHERE id="+idClase+";");
+            System.out.println("REGISTRO BORRADO \n");
             cerrar();
         }
         catch(SQLException e){
-            System.out.println("No se ha podido borrar registro\n");
+            System.out.println("No se ha podido eliminar registro\n");
         }
     }
     

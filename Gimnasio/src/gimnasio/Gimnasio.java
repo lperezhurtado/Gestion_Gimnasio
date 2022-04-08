@@ -7,14 +7,17 @@ public class Gimnasio {
     //metodo para imprimir menu
     public static void menu(){
         System.out.println("MENU DE OPCIONES\n"
+                + "CLASES \n"
                 + "1. Añadir nueva clase\n"
                 + "2. Actualizar datos de un clase\n"
                 + "3. Eliminar una clase del registro\n"
                 + "4. Ver todas las clases disponibles\n"
+                + "CLIENTES \n"
                 + "5. Añadir nuevo cliente\n"
                 + "6. Actualizar datos de un cliente\n"
                 + "7. Eliminar cliente del registro\n"
                 + "8. Ver todos los clientes\n"
+                + "APUNTAR A CLASES \n"
                 + "9. Apuntar cliente a una clase\n"
                 + "10. Borrar cliente de una clase\n"
                 + "11. SALIR\n");
@@ -48,7 +51,7 @@ public class Gimnasio {
         String nombre = pedirDatos();
         System.out.println("Profesor que impartirá la clase");
         String profesor = pedirDatos();
-        System.out.println("Que dia se impartirá?");
+        System.out.println("Qué día se impartirá?");
         String dia = pedirDatos();
         System.out.println("A que hora?");
         String hora = pedirDatos();

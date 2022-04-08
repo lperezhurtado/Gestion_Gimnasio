@@ -8,11 +8,11 @@ public class Clase {
     private String hora;
     private String dia;
     
-    public Clase(String n, String p, String h, String d){
-        setNombre(n);
-        setProfesor(p);
-        setHora(h);
-        setDia(d);
+    public Clase(String n, String p, String d, String h){
+        this.nombre = n;
+        this.profesor = p;
+        this.dia = d;
+        this.hora = h;
     }
 
     public String getNombre() {
@@ -31,14 +31,6 @@ public class Clase {
         this.profesor = profesor;
     }
 
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-
     public String getDia() {
         return dia;
     }
@@ -47,5 +39,12 @@ public class Clase {
         this.dia = dia;
     }
     
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
     
 }

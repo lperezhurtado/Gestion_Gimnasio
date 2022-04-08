@@ -19,7 +19,11 @@ hora time not null,
 apuntados int unsigned default (0)
 );
 
+alter table clases add column apuntados int unsigned default(0);
 alter table clases modify dia varchar(10);
+describe clases;
+alter table clases modify hora varchar(10);
+
 create table clientes_clases(
 idCliente int unsigned not null,
 nombreCliente varchar(45),
@@ -32,4 +36,12 @@ on delete cascade on update cascade,
 CONSTRAINT FK_IdClases FOREIGN KEY (idClase) REFERENCES clases(id)
 on delete cascade on update cascade
 )Engine=InnoDB;
+
+select * from clientes;
+select * from clases;
+select * from clientes_clases;
+
+
+
+
 
