@@ -7,13 +7,9 @@ public class Cliente {
     private String dni;
     private String telefono;
     private String fechaAlta;
-    private double cuota;
-    
-    public Cliente(){
-        
-    }
+    private String cuota;
 
-    public Cliente(String nombre, String dni, String telefono, String fechaAlta, double cuota) {
+    public Cliente(String nombre, String dni, String telefono, String fechaAlta, String cuota) {
         this.nombre = nombre;
         this.dni = dni;
         this.telefono = telefono;
@@ -54,15 +50,12 @@ public class Cliente {
         this.fechaAlta = fechaAlta;
     }
 
-    public double getCuota() {
+    public String getCuota() {
         return cuota;
     }
 
-    public void setCuota(double cuota){
+    public void setCuota(String cuota){
         this.cuota = cuota;
     }
-    
-    
-    
    
 }
