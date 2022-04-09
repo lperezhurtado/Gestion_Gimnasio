@@ -51,6 +51,8 @@ public class controladorDDBBGimnasio {
             conectar();
             rs = statement.executeQuery("SELECT * FROM clientes");
             
+            System.out.println(String.format("%-2s | %-14s | %-10s | %-10s | %-12s | %-5s |", "ID","NOMBRE","DNI","TELEFONO","FECHA","CUOTA"));
+            System.out.println("----------------------------------------------------------------"); 
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
@@ -59,8 +61,10 @@ public class controladorDDBBGimnasio {
                 Date fecha = rs.getDate("fecha_alta");
                 String cuota = rs.getString("cuota");
 
-                System.out.println(String.format("%d, %s, %s, %s, %s, %s", id, nombre, dni, telefono, fecha, cuota));
+                System.out.println(String.format("%-2d | %-14s | %-10s | %-10s | %-12s | %-5s |", id, nombre, dni, telefono, fecha, cuota));
             }
+                                                                    
+            
             cerrar();
         }
         catch(SQLException e){
@@ -99,8 +103,9 @@ public class controladorDDBBGimnasio {
     public void deleteCliente(int id){
         try{
             conectar();
-            ejecucion = statement.execute("delete from clientes where id="+id+";");
+            ejecucion = statement.execute("DELETE FROM clientes WHERE id="+id+";");
             cerrar();
+            System.out.println("CLIENTE ELIMINADO\n");
         }
         catch(SQLException e){
             System.out.println(e);
@@ -113,17 +118,16 @@ public class controladorDDBBGimnasio {
         try{
             conectar();
             rs = statement.executeQuery("SELECT * FROM clases");
-            System.out.println(String.format("%-2s | %-10s | %-10s | %-10s | %-10s | %-5s |", "ID", "NOMBRE", "PROFESOR", "DIA", "HORA", "APUNTADOS"));
-            System.out.println("-------------------------------------------------------------------");                                                         
+            System.out.println(String.format("%-2s | %-10s | %-14s | %-10s | %-10s |", "ID", "NOMBRE", "PROFESOR", "DIA", "HORA"));
+            System.out.println("----------------------------------------------------------");                                                         
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String profesor = rs.getString("profesor");
                 String dia = rs.getString("dia");
                 String hora = rs.getString("hora");
-                int apuntados = rs.getInt("apuntados");
                 
-                System.out.println(String.format("%-2d | %-10s | %-10s | %-10s | %-10s | %-5d", id, nombre, profesor, dia, hora, apuntados));
+                System.out.println(String.format("%-2d | %-10s | %-14s | %-10s | %-10s |", id, nombre, profesor, dia, hora));
             }
             cerrar();
         }
@@ -178,8 +182,6 @@ public class controladorDDBBGimnasio {
             ejecucion = statement.execute("INSERT INTO clientes_clases (idCliente, nombreCliente, idClase, nombreClase)\n " +
                                           "SELECT "+idCliente+", clientes.nombre, "+idClase+", clases.nombre FROM clientes, clases\n " +
                                           "WHERE clientes.id="+idCliente+" AND clases.id="+idClase+";");
-            
-            ejecucion = statement.execute("UPDATE clases SET apuntados=apuntados+1 WHERE id="+idClase+";");
             cerrar();
             System.out.println("SE HA ANOTADO CLIENTE CORRECTAMENTE \n");
         }
@@ -192,7 +194,6 @@ public class controladorDDBBGimnasio {
         try{
             conectar();
             ejecucion = statement.execute("DELETE FROM clientes_clases WHERE idCliente="+idCliente+" AND idClase="+idClase+";");
-            ejecucion = statement.execute("UPDATE clases SET apuntados=apuntados-1 WHERE id="+idClase+";");
             System.out.println("REGISTRO BORRADO \n");
             cerrar();
         }
@@ -201,5 +202,38 @@ public class controladorDDBBGimnasio {
         }
     }
     
-    
+    public void verClientesApuntados(){
+        try{
+            conectar();
+            rs = statement.executeQuery("SELECT * FROM clientes_clases");
+            
+            System.out.println(String.format("%-2s | %-10s | %-2s | %-10s", "ID CLIENTE", "NOMBRE CLIENTE", "ID CLASE", "NOMBRE CLASE"));
+            System.out.println("-------------------------------------------------------");
+            while (rs.next()) {
+                int idCliente = rs.getInt("idCliente");
+                String nombreCli = rs.getString("nombreCliente");
+                int idClase = rs.getInt("idClase");
+                String nombreCla = rs.getString("nombreClase");
+               
+                System.out.println(String.format("%-10d | %-14s | %-8d | %-10s", idCliente, nombreCli, idClase, nombreCla));
+            }
+            cerrar();
+            System.out.println("\n");
+            conectar();
+            rs = statement.executeQuery("SELECT nombreClase ,count(idCliente) FROM clientes_clases GROUP BY nombreClase");
+            System.out.println(String.format("| %-15s |", "TOTAL APUNTADOS EN:"));
+            System.out.println("------------------------------");
+            while (rs.next()) {
+                String nombreClase = rs.getString("nombreClase");
+                int cont = rs.getInt("count(idCliente)");
+               
+                System.out.println(String.format("%-10s | %-8d |", nombreClase, cont));
+            }
+            System.out.println("");
+            cerrar();
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }        
 }

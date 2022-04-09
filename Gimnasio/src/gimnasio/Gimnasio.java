@@ -18,9 +18,10 @@ public class Gimnasio {
                 + "7. Eliminar cliente del registro\n"
                 + "8. Ver todos los clientes\n"
                 + "APUNTAR A CLASES \n"
-                + "9. Apuntar cliente a una clase\n"
-                + "10. Borrar cliente de una clase\n"
-                + "11. SALIR\n");
+                + "9. Ver clientes apuntados en clases\n"
+                + "10. Apuntar cliente a una clase\n"
+                + "11. Borrar cliente de una clase\n"
+                + "12. SALIR\n");
     }
     //metodo para leer del Scanner
     public static String pedirDatos() {
@@ -121,6 +122,9 @@ public class Gimnasio {
                     controlador.verDatosClientes();
                     break;
                 case 9:
+                    controlador.verClientesApuntados();
+                    break;
+                case 10:
                     System.out.println("ID del cliente?");
                     id = lector.nextInt();
                     lector.nextLine();
@@ -128,7 +132,7 @@ public class Gimnasio {
                     int id2 = lector.nextInt();
                     controlador.apuntarCliente(id, id2);
                     break;
-                case 10:
+                case 11:
                     System.out.println("ID del cliente?");
                     id = lector.nextInt();
                     lector.nextLine();
@@ -136,13 +140,13 @@ public class Gimnasio {
                     id2 = lector.nextInt();
                     controlador.desapuntarCliente(id, id2);
                     break;
-                case 11:
+                case 12:
                     System.out.println("HASTA LUEGO");
                     break;
                 default:
                     throw new AssertionError();
             }
-        } while (opcion != 11);
+        } while (opcion != 12);
         
         
         //Cliente c = new Cliente("Josue","24514324d","61792834","2022-02-21",450);
