@@ -19,9 +19,8 @@ public class controladorDDBBGimnasio {
     ResultSet rs;
     private boolean ejecucion;
     
-    
+    //metodo para conectar con el servidor
     public void conectar() {
-   
         try{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
        
@@ -33,8 +32,8 @@ public class controladorDDBBGimnasio {
         }
     }
     
+    //metodo para cerrar las conexiones
     public void cerrar(){
-        
         try{
             rs.close();
             statement.close();
@@ -43,10 +42,8 @@ public class controladorDDBBGimnasio {
             System.out.println(e);
         }
     }
-    
-    //Metodos controladores para la tabla CLIENTES
-    public void verDatosClientes(){
-        
+    //======= Metodos controladores para la tabla CLIENTES ==========
+    public void verDatosClientes(){ 
         try{
             conectar();
             rs = statement.executeQuery("SELECT * FROM clientes");
@@ -62,16 +59,14 @@ public class controladorDDBBGimnasio {
                 String cuota = rs.getString("cuota");
 
                 System.out.println(String.format("%-2d | %-14s | %-10s | %-10s | %-12s | %-5s |", id, nombre, dni, telefono, fecha, cuota));
-            }
-                                                                    
-            
+            }                                                       
             cerrar();
         }
         catch(SQLException e){
             System.out.println(e);
         }
     }
-    
+    //metodo para AÑADIR nuevo cliente 
     public void insertCliente(Cliente c){
         try{
             conectar();
@@ -86,9 +81,8 @@ public class controladorDDBBGimnasio {
             System.out.println("DNI ya existente, no se puede introducir cliente");
         }
     }
-    
+    //metodo para ACTUALIZAR datos de un cliente existente
     public void updateCliente(int id, Cliente c){
-        
         try{
             conectar();
             ejecucion = statement.execute("update clientes set nombre='"+c.getNombre()
@@ -99,7 +93,7 @@ public class controladorDDBBGimnasio {
             System.out.println(e);
         }
     }
-    
+    //metodo para BORRAR un cliente de la base de datos
     public void deleteCliente(int id){
         try{
             conectar();
@@ -111,10 +105,8 @@ public class controladorDDBBGimnasio {
             System.out.println(e);
         }
     }
-    
-    //Metodos controladores para la tabla CLASES
+    //========= Metodos controladores para la tabla CLASES =============
     public void verDatosClases(){
-        
         try{
             conectar();
             rs = statement.executeQuery("SELECT * FROM clases");
@@ -135,7 +127,7 @@ public class controladorDDBBGimnasio {
             System.out.println(e);
         }
     }
-    
+    //metodo para AÑADIR una nueva clase
     public void insertClase(Clase c){
         try{
             conectar();
@@ -148,9 +140,8 @@ public class controladorDDBBGimnasio {
             System.out.println(e);
         }
     }
-    
+    //metodo para ACTUALIZAR  datos de una clase existente 
     public void updateClase(int id, Clase c){
-        
         try{
             conectar();
             ejecucion = statement.execute("update clases set nombre='"+c.getNombre() +
@@ -162,7 +153,7 @@ public class controladorDDBBGimnasio {
             System.out.println(e+"\n");
         }
     }
-    
+    //metodo para ELIMINAR una clase de la base de datos 
     public void deleteClase(int id){
         try{
             conectar();
@@ -175,7 +166,8 @@ public class controladorDDBBGimnasio {
         }
     }
     
-    //Metodos controladores para APUNTAR CLIENTES A CLASES
+    //========= Metodos controladores para APUNTAR CLIENTES A CLASES ===========
+    //metodo para apuntar un cliente
     public void apuntarCliente(int idCliente, int idClase){
         try{
             conectar();
@@ -189,7 +181,7 @@ public class controladorDDBBGimnasio {
             System.out.println("Cliente o clase no existente\n");
         }
     }
-    
+    //metodo para quitar un cliente de una clase
     public void desapuntarCliente(int idCliente, int idClase){
         try{
             conectar();
@@ -201,7 +193,7 @@ public class controladorDDBBGimnasio {
             System.out.println("No se ha podido eliminar registro\n");
         }
     }
-    
+    //metodo para ver todos los cliente apunntados a las diversas clases
     public void verClientesApuntados(){
         try{
             conectar();
@@ -220,7 +212,7 @@ public class controladorDDBBGimnasio {
             cerrar();
             System.out.println("\n");
             conectar();
-            rs = statement.executeQuery("SELECT nombreClase ,count(idCliente) FROM clientes_clases GROUP BY nombreClase");
+            rs = statement.executeQuery("SELECT nombreClase ,count(idCliente) FROM clientes_clases GROUP BY nombreClase ORDER BY count(idCliente) DESC;");
             System.out.println(String.format("| %-15s |", "TOTAL APUNTADOS EN:"));
             System.out.println("------------------------------");
             while (rs.next()) {

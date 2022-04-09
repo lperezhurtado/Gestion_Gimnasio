@@ -8,6 +8,7 @@ public class Clase {
     private String hora;
     private String dia;
     
+    //constructo
     public Clase(String n, String p, String d, String h){
         this.nombre = n;
         this.profesor = p;

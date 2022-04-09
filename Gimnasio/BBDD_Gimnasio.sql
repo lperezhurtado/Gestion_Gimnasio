@@ -45,6 +45,16 @@ on delete cascade on update cascade
 select * from clientes;
 select * from clases;
 select * from clientes_clases;
+select nombreClase ,count(idCliente) from clientes_clases  group by nombreClase order by count(idCliente) desc;
 
+insert into clientes (nombre, DNI, telefono, fecha_alta, cuota) values	
+('JOSUE VARGAS', '66666666D', '1234567890', '2022-01-15',	40),
+('Sara Hurtado', '11111111V', '0987654321', '2021-10-12',	10),
+('Jorge Ferrer', '22222222S', '6123456789', '2021-09-09',	15),
+('Fernando Perez', '33333333H', '609876543', '2021-08-25',	20);
 
-
+insert into clases (nombre, profesor, dia, hora) values
+('Natacion', 'Ruben P�rez', 'Lunes', '10:00'),
+('Crossfit', 'Marcos Lopez', 'Martes', '18:00'),
+('Boxeo', 'Luis Perez', 'Miercoles', '16:00'),
+('SPINNIN', 'Laia Requena', 'Viernes', '10:00');

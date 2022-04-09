@@ -27,7 +27,6 @@ public class Gimnasio {
     public static String pedirDatos() {
         Scanner lector = new Scanner(System.in);
         return lector.nextLine();
-
     }
     //Metodo para pedir datos del cliente y crearlo
     public static String[] datosCliente(){
@@ -147,27 +146,5 @@ public class Gimnasio {
                     throw new AssertionError();
             }
         } while (opcion != 12);
-        
-        
-        //Cliente c = new Cliente("Josue","24514324d","61792834","2022-02-21",450);
-        //controlador.insertCliente(c);
-       
-       //controlador.updateCliente(1,cliente);
-       //controlador.deleteCliente(2);
-        //controlador.verDatosClientes();
-        //controlador.verDatosClientes();
-        
-       
-        
-      /* try{
-           Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-       }
-       catch(Exception e){
-           System.out.println("No se ha encontrado el driver");
-       }*/
-      
     }
-    
-    
-    
 }

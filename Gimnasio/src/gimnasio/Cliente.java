@@ -8,7 +8,8 @@ public class Cliente {
     private String telefono;
     private String fechaAlta;
     private String cuota;
-
+    
+    //constructor
     public Cliente(String nombre, String dni, String telefono, String fechaAlta, String cuota) {
         this.nombre = nombre;
         this.dni = dni;
@@ -17,7 +18,6 @@ public class Cliente {
         this.cuota = cuota;
     }
     
-
     public String getNombre() {
         return nombre;
     }
